@@ -1,5 +1,5 @@
 - name: copy mongo repo
-    copy:
+  copy:
       src: mongodb.repo
       dest: /etc/yum.repos.d/mongo.repo
 - name: install  mongodb

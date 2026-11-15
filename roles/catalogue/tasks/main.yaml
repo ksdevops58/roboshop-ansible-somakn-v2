@@ -86,9 +86,11 @@
   when: product_count.stdout | int == 0
 
 - name: restart application
-  include_roles:
+  include_role:
     name: common
     tasks_from: restart
+
+
 
 # - name: daemonreload
 #   systemd_service:

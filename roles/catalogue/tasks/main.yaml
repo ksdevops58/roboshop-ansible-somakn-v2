@@ -6,7 +6,7 @@
 - name: nodejs setup
   include_role:
     name: common
-    taks_from: nodejs
+    tasks_from: nodejs
 
 # - name: disable default nodejs:24
 #   command: dnf module disable nodejs -y

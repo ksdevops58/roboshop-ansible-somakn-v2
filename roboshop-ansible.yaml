@@ -37,7 +37,7 @@
       zone: "{{ domain_name }}"
       record: "{{ domain_name }}"
       type: A
-      ttl: 1
+      ttl: 60
       value: "{{ item.instances[0].public_ip_address }}"
       overwrite: true
     loop: "{{ ec2_output.results }}"

@@ -3,6 +3,11 @@
     name: common
     tasks_from: app-setup
 
+- name: nodejs setup
+  include_role:
+    name: common
+    taks_from: nodejs
+
 # - name: disable default nodejs:24
 #   command: dnf module disable nodejs -y
 
@@ -49,43 +54,43 @@
 #     dest: /app
 #     remote_src: yes
 
-- name: install dependencies
-  community.general.npm:
-    path: /app
+# - name: install dependencies
+#   community.general.npm:
+#     path: /app
 
-- name: copy catalogue service
-  template:
-    src: catalogue.service.j2
-    dest: /etc/systemd/system/catalogue.service
+# - name: copy catalogue service
+#   template:
+#     src: catalogue.service.j2
+#     dest: /etc/systemd/system/catalogue.service
 
-- name: copy mongo repo
-  copy:
-    src: mongodb.repo
-    dest: /etc/yum.repos.d/mongo.repo
+# - name: copy mongo repo
+#   copy:
+#     src: mongodb.repo
+#     dest: /etc/yum.repos.d/mongo.repo
 
-- name: install mongodb-client
-  dnf:
-    name:  mongodb-mongosh
-    state: present
+# - name: install mongodb-client
+#   dnf:
+#     name:  mongodb-mongosh
+#     state: present
 
-- name: check products loaded or net  
-  command: mongosh --host {{  mongodb_host  }} --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
-  register: product_count
+# - name: check products loaded or net  
+#   command: mongosh --host {{  mongodb_host  }} --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
+#   register: product_count
 
-- name: print product_count
-  debug:
-    msg: "{{  product_count  }}"
+# - name: print product_count
+#   debug:
+#     msg: "{{  product_count  }}"
 
-- name: load the products
-  shell: mongosh --host "{{ mongodb_host }}" </app/db/master-data.js
-  when: product_count.stdout | int == 0
+# - name: load the products
+#   shell: mongosh --host "{{ mongodb_host }}" </app/db/master-data.js
+#   when: product_count.stdout | int == 0
 
-- name: daemonreload
-  systemd_service:
-    daemon_reload: true
+# - name: daemonreload
+#   systemd_service:
+#     daemon_reload: true
 
-- name: start and enable catalogue
-  service:
-    name: catalogue
-    state: restarted
-    enabled: yes
+# - name: start and enable catalogue
+#   service:
+#     name: catalogue
+#     state: restarted
+#     enabled: yes

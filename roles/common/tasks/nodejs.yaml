@@ -8,3 +8,7 @@
   dnf:
     name: nodejs
     state: present
+    
+- name: install dependencies
+  community.general.npm:
+    path: /app

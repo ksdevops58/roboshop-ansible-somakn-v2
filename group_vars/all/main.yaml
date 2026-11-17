@@ -14,3 +14,5 @@ cart_host: cart.sdaws1.store
 shipping_host: shipping.sdaws1.store
 payment_host: payment.sdaws1.store
 mysql_host: mysql.sdaws1.store
+shipping_db_user: "{{ vault_shipping_db_user }}"
+shipping_db_password: "{{ vault_shipping_db_password }}"

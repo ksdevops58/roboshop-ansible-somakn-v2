@@ -25,7 +25,7 @@
       zone: "{{ domain_name }}"
       record: "{{ item.item }}.{{ domain_name }}"
       type: A
-      ttl: 1
+      ttl: 60
       value: "{{ item.instances[0].private_ip_address }}"
       overwrite: true
     loop: "{{ ec2_output.results }}"
@@ -48,7 +48,7 @@
       state: absent
       zone: "{{ domain_name }}"
       record: "{{ item }}.{{ domain_name }}"
-      ttl: 300
+      ttl: 60
       type: A
     loop: "{{  instances }}"
     when: action == "delete"
@@ -58,7 +58,7 @@
       state: absent
       zone: "{{ domain_name }}"
       record: "{{ domain_name }}"
-      ttl: 300
+      ttl: 60
       type: A
     loop: "{{  instances }}"
     when: action == "delete" and item.item == "frontend"

@@ -1,4 +1,4 @@
-- name: restart the frontend
+- name: restart nginx
   service:
     name: nginx
     state: restarted

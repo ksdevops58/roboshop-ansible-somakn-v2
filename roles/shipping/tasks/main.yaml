@@ -6,12 +6,12 @@
 - name: javasetup setup
   include_role:
     name: common
-    tasks_from: javasetup
-
-- name: java
-  include_role: 
-    name: common
     tasks_from: java
+
+# - name: java
+#   include_role: 
+#     name: common
+#     tasks_from: java
 
 - name: systemd setup
   include_role:

@@ -8,6 +8,18 @@
     name: common
     tasks_from: nodejs
 
+- name: systemd-setup
+  include_role:
+    name: common
+    tasks_from: systemd-setup
+
+- name: restart application
+  include_role:
+    name: common
+    tasks_from: restart
+
+
+
 # - name: disable default nodejs:24
 #   command: dnf module disable nodejs -y
 
@@ -63,32 +75,32 @@
 #     src: catalogue.service.j2
 #     dest: /etc/systemd/system/catalogue.service
 
-- name: copy mongo repo
-  copy:
-    src: mongodb.repo
-    dest: /etc/yum.repos.d/mongo.repo
+# - name: copy mongo repo
+#   copy:
+#     src: mongodb.repo
+#     dest: /etc/yum.repos.d/mongo.repo
 
-- name: install mongodb-client
-  dnf:
-    name:  mongodb-mongosh
-    state: present
+# - name: install mongodb-client
+#   dnf:
+#     name:  mongodb-mongosh
+#     state: present
 
-- name: check products loaded or net  
-  command: mongosh --host "{{  mongodb_host  }}" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
-  register: product_count
+# - name: check products loaded or net  
+#   command: mongosh --host "{{  mongodb_host  }}" --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
+#   register: product_count
 
-- name: print product_count
-  debug:
-    msg: "{{  product_count  }}"
+# - name: print product_count
+#   debug:
+#     msg: "{{  product_count  }}"
 
-- name: load the products
-  shell: mongosh --host "{{ mongodb_host }}" </app/db/master-data.js
-  when: product_count.stdout | int == 0
+# - name: load the products
+#   shell: mongosh --host "{{ mongodb_host }}" </app/db/master-data.js
+#   when: product_count.stdout | int == 0
 
-- name: restart application
-  include_role:
-    name: common
-    tasks_from: restart
+# - name: restart application
+#   include_role:
+#     name: common
+#     tasks_from: restart
 
 
 

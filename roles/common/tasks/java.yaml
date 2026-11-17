@@ -11,8 +11,8 @@
     state: present
 
  - name: build {{ component }}
-    command: mvn clean package
-    args:
+   command: mvn clean package
+   args:
      chdir: /app
     # environment:
     #   JAVA_HOME: "{{ java25.stdout | dirname | dirname  }}"
